@@ -12,19 +12,24 @@
             "type": "string"
         },
         "adminPassword": {
-            "type": "P@ssword!"
+            "type": "string"
         }            
     },
     "variables": {
-        "nsgId": "[resourceId(resourceGroup().name, 'Microsoft.Network/networkSecurityGroups', variables('networkSecurityGroupName'))]",
+        "suffix": "[uniqueString(resourceGroup().id, resourceGroup().location)]",
+        "resourceGroupName": "[toLower(resourceGroup().name)]",
+        "VMName" : "[toLower(concat(parameters('virtualMachineName'), variables('suffix')))]",
+        "nsgId"  : "[resourceId(resourceGroup().name, 'Microsoft.Network/networkSecurityGroups', variables('networkSecurityGroupName'))]",
         "vnetId": "[variables('virtualNetworkId')]",
-        "subnetRef": "[concat(variables('vnetId'), '/subnets/', variables('subnetName'))]"
+        "subnetRef": "[concat(variables('vnetId'), '/subnets/', variables('subnetName'))]",
         "networkInterfaceName": "mdaz-win1601138",
         "networkSecurityGroupName": "MDAZ-Win1601-nsg",
-        "networkSecurityGroupRules": [
-            {
+        "networkSecurityGroupRules": {
+                "value": [
+                {                    
                 "name": "RDP",
-                "properties"     "priority": 300,
+                "properties": {    
+                "priority": 300,
                 "protocol": "TCP",
                 "access": "Allow",
                 "direction": "Inbound",
@@ -32,9 +37,10 @@
                 "sourcePortRange": "*",
                 "destinationAddressPrefix": "*",
                 "destinationPortRange": "3389"
-            }               
-    
-        ],
+                            }
+                        }
+                    ]
+        },
         "subnetName": "MDAZ-Subnet01",
         "virtualNetworkId": "/subscriptions/65f33a87-34aa-4458-bce6-480c3d8a344c/resourceGroups/MDAZ-VM01-RG/providers/Microsoft.Network/virtualNetworks/MDAZ-VNet01",
         "publicIpAddressName": "MDAZ-Win1601-ip",
@@ -113,7 +119,7 @@
             }
         },
         {
-            "name": "[parameters('virtualMachineName')]",
+            "name": "[variables('VMName')]",
             "type": "Microsoft.Compute/virtualMachines",
             "apiVersion": "2018-10-01",
             "location": "[parameters('location')]",
@@ -146,7 +152,7 @@
                     ]
                 },
                 "osProfile": {
-                    "computerName": "[parameters('virtualMachineName')]",
+                    "computerName": "[variables('VMName')]",
                     "adminUsername": "[parameters('adminUsername')]",
                     "adminPassword": "[parameters('adminPassword')]",
                     "windowsConfiguration": {
@@ -166,12 +172,12 @@
             }
         },
         {
-            "name": "[concat('shutdown-computevm-', parameters('virtualMachineName'))]",
+            "name": "[concat('shutdown-computevm-', variables('VMName'))]",
             "type": "Microsoft.DevTestLab/schedules",
             "apiVersion": "2017-04-26-preview",
-            "location": "[variables('location')]",
+            "location": "[parameters('location')]",
             "dependsOn": [
-                "[concat('Microsoft.Compute/virtualMachines/', parameters('virtualMachineName'))]"
+                "[concat('Microsoft.Compute/virtualMachines/', variables('VMName'))]"
             ],
             "properties": {
                 "status": "[variables('autoShutdownStatus')]",
@@ -180,7 +186,7 @@
                     "time": "[variables('autoShutdownTime')]"
                 },
                 "timeZoneId": "[variables('autoShutdownTimeZone')]",
-                "targetResourceId": "[resourceId('Microsoft.Compute/virtualMachines', parameters('virtualMachineName'))]",
+                "targetResourceId": "[resourceId('Microsoft.Compute/virtualMachines', variables('VMName'))]",
                 "notificationSettings": {
                     "status": "[variables('autoShutdownNotificationStatus')]",
                     "notificationLocale": "[variables('autoShutdownNotificationLocale')]",
