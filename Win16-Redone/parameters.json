@@ -6,7 +6,7 @@
             "value": "westus"
         },
         "virtualMachineName": {
-            "value": "MDAZ-Win1601"
+            "value": "LearnJson"
         },
         "adminUsername": {
             "value": "martianadmin"
