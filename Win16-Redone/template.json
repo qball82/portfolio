@@ -59,7 +59,7 @@
         "autoShutdownTimeZone": "Pacific Standard Time",
         "autoShutdownNotificationStatus": "Enabled",
         "autoShutdownNotificationLocale": "en",
-        "autoShutdownNotificationEmail": "qfleming9@gmail.com"
+        "autoShutdownNotificationEmail": "qfleming9@gmail.com",
         "nsgId": "[resourceId(resourceGroup().name, 'Microsoft.Network/networkSecurityGroups', variables('networkSecurityGroupName'))]",
         "vnetId": "[variables('virtualNetworkId')]",
         "virtualMachineRG": "[tolower(concat(parameters('virtualMachinename'), '-RG', variables('suffix')))]",
