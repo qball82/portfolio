@@ -3,60 +3,75 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
         "location": {
-            "type": "string"
-        },
-        "virtualMachineName": {
-            "type": "string"
+            "type": "string"     
         },
         "adminUsername": {
             "type": "string"
         },
         "adminPassword": {
             "type": "string"
+        },
+        "EnvironmentSize": {
+            "type": "string",
+            "defaultValue": "medium",
+            "allowedValues": [
+                "medium",
+                "small"
+            ],
+            "metadata": {
+                "description": "Medium for regular development. Small for quick test"
+            }
         }            
+        
     },
     "variables": {
         "suffix": "[uniqueString(resourceGroup().id, resourceGroup().location)]",
         "resourceGroupName": "[toLower(resourceGroup().name)]",
         "VMName" : "[toLower(concat(parameters('virtualMachineName'), variables('suffix')))]",
-        "nsgId"  : "[resourceId(resourceGroup().name, 'Microsoft.Network/networkSecurityGroups', variables('networkSecurityGroupName'))]",
-        "vnetId": "[variables('virtualNetworkId')]",
-        "subnetRef": "[concat(variables('vnetId'), '/subnets/', variables('subnetName'))]",
-        "networkInterfaceName": "mdaz-win1601138",
-        "networkSecurityGroupName": "MDAZ-Win1601-nsg",
+        "virtualMachineSize": "Standard_B1ls",
+        "networkInterfaceName": "[tolower(concat(parameters('virtualMachinename'), '-nic', variables('suffix')))]",
+        "networkSecurityGroupName": "[tolower(concat(parameters('virtualMachinename'), '-nsg', variables('suffix')))]",
         "networkSecurityGroupRules": {
-                "value": [
-                {                    
-                "name": "RDP",
-                "properties": {    
-                "priority": 300,
-                "protocol": "TCP",
-                "access": "Allow",
-                "direction": "Inbound",
-                "sourceAddressPrefix": "*",
-                "sourcePortRange": "*",
-                "destinationAddressPrefix": "*",
-                "destinationPortRange": "3389"
-                            }
+            "value": [
+            {                    
+            "name": "RDP",
+            "properties": {    
+            "priority": 300,
+            "protocol": "TCP",
+            "access": "Allow",
+            "direction": "Inbound",
+            "sourceAddressPrefix": "*",
+            "sourcePortRange": "*",
+            "destinationAddressPrefix": "*",
+            "destinationPortRange": "3389"
                         }
-                    ]
-        },
-        "subnetName": "MDAZ-Subnet01",
-        "virtualNetworkId": "/subscriptions/65f33a87-34aa-4458-bce6-480c3d8a344c/resourceGroups/MDAZ-VM01-RG/providers/Microsoft.Network/virtualNetworks/MDAZ-VNet01",
-        "publicIpAddressName": "MDAZ-Win1601-ip",
+                    }
+                ]
+            },
+        "diagnosticsStorageAccountName": "[substring(concat(variables('resourceGroupName'), 'diag', variables('suffix')), 0, 24)]",        
+        "subnetName": "[tolower(concat(parameters('virtualMachinename'), '-subnet', variables('suffix')))]",
+        "subnetRef": "[concat(variables('vnetId'), '/subnets/', variables('subnetName'))]",
+        "publicIpAddressName": "[tolower(concat(parameters('virtualMachinename'), '-IP', variables('suffix')))]",
         "publicIpAddressType": "Dynamic",
         "publicIpAddressSku": "Basic",
-        "virtualMachineRG": "MDAZ-VM01-RG",
-        "osDiskType": "StandardSSD_LRS",
-        "virtualMachineSize": "Standard_B1ls",
-        "diagnosticsStorageAccountName": "mdazvmdiagstorage01",
-        "diagnosticsStorageAccountId": "/subscriptions/65f33a87-34aa-4458-bce6-480c3d8a344c/resourceGroups/MDAZ-Storage01-RG/providers/Microsoft.Storage/storageAccounts/mdazvmdiagstorage01",
         "autoShutdownStatus": "Enabled",
         "autoShutdownTime": "19:00",
         "autoShutdownTimeZone": "Pacific Standard Time",
         "autoShutdownNotificationStatus": "Enabled",
         "autoShutdownNotificationLocale": "en",
-        "autoShutdownNotificationEmail": "quentin@martiandigital.online"
+        "autoShutdownNotificationEmail": "qfleming9@gmail.com"
+        "nsgId": "[resourceId(resourceGroup().name, 'Microsoft.Network/networkSecurityGroups', variables('networkSecurityGroupName'))]",
+        "vnetId": "[variables('virtualNetworkId')]",
+        "virtualMachineRG": "[tolower(concat(parameters('virtualMachinename'), '-RG', variables('suffix')))]",
+        "osDiskType": "StandardSSD_LRS",
+        "VM-Sizer": {
+            "medium":{
+                "VMSize": "Standard_B1s"
+            },
+            "small":{
+                "VMSize": "Standard_B1ls"
+            }
+        }      
     },
     "resources": [
         {
@@ -128,7 +143,7 @@
             ],
             "properties": {
                 "hardwareProfile": {
-                    "vmSize": "[variables('virtualMachineSize')]"
+                    "vmSize": "[variables('VM-Sizer')[parameters('EnvironmentSize')].VMSize]"
                 },
                 "storageProfile": {
                     "osDisk": {
