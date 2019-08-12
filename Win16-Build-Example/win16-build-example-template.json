@@ -14,13 +14,13 @@
         "subnetName": {
             "type": "string"
         },
+        "subnets": {
+            "type": "array"
+        },
         "virtualNetworkName": {
             "type": "string"
         },
         "addressPrefixes": {
-            "type": "array"
-        },
-        "subnets": {
             "type": "array"
         },
         "publicIpAddressName": {
@@ -35,9 +35,6 @@
         "virtualMachineName": {
             "type": "string"
         },
-        "virtualMachineRG": {
-            "type": "string"
-        },
         "osDiskType": {
             "type": "string"
         },
@@ -48,10 +45,7 @@
             "type": "string"
         },
         "adminPassword": {
-            "type": "secureString"
-        },
-        "diagnosticsStorageAccountName": {
-            "type": "string"
+            "type": "securestring"
         },
         "diagnosticsStorageAccountId": {
             "type": "string"
@@ -86,7 +80,8 @@
         "vnetId": "[resourceId(resourceGroup().name,'Microsoft.Network/virtualNetworks', parameters('virtualNetworkName'))]",
         "subnetRef": "[concat(variables('vnetId'), '/subnets/', parameters('subnetName'))]",
         "diagnosticsExtensionName": "Microsoft.Insights.VMDiagnosticsSettings",
-        "networkInterfaceName": "[tolower(concat(parameters('virtualMachinename'), '-vnic'))]"
+        "networkInterfaceName": "[tolower(concat(parameters('virtualMachinename'), '-vnic'))]",
+        "diagnosticsStorageAccountName": "[tolower(concat(parameters('virtualMachinename'), '-diagstore'))]"
     },
     "resources": [
         {
@@ -171,7 +166,7 @@
             "location": "[parameters('location')]",
             "dependsOn": [
                 "[concat('Microsoft.Network/networkInterfaces/', variables('networkInterfaceName'))]",
-                "[concat('Microsoft.Storage/storageAccounts/', parameters('diagnosticsStorageAccountName'))]"
+                "[concat('Microsoft.Storage/storageAccounts/', variables('diagnosticsStorageAccountName'))]"
             ],
             "properties": {
                 "hardwareProfile": {
@@ -179,7 +174,7 @@
                 },
                 "storageProfile": {
                     "osDisk": {
-                        "createOption": "fromImage",
+                        "createOption": "FromImage",
                         "managedDisk": {
                             "storageAccountType": "[parameters('osDiskType')]"
                         }
@@ -210,7 +205,7 @@
                 "diagnosticsProfile": {
                     "bootDiagnostics": {
                         "enabled": true,
-                        "storageUri": "[concat('https://', parameters('diagnosticsStorageAccountName'), '.blob.core.windows.net/')]"
+                        "storageUri": "[concat('https://', variables('diagnosticsStorageAccountName'), '.blob.core.windows.net/')]"
                     }
                 }
             },
@@ -219,7 +214,7 @@
             }
         },
         {
-            "name": "[parameters('diagnosticsStorageAccountName')]",
+            "name": "[variables('diagnosticsStorageAccountName')]",
             "type": "Microsoft.Storage/storageAccounts",
             "apiVersion": "2019-04-01",
             "location": "[parameters('location')]",
@@ -270,7 +265,7 @@
                 "typeHandlerVersion": "1.5",
                 "autoUpgradeMinorVersion": true,
                 "settings": {
-                    "StorageAccount": "[parameters('diagnosticsStorageAccountName')]",
+                    "StorageAccount": "[variables('diagnosticsStorageAccountName')]",
                     "WadCfg": {
                         "DiagnosticMonitorConfiguration": {
                             "overallQuotaInMB": 5120,
@@ -541,7 +536,7 @@
                     }
                 },
                 "protectedSettings": {
-                    "storageAccountName": "[parameters('diagnosticsStorageAccountName')]",
+                    "storageAccountName": "[variables('diagnosticsStorageAccountName')]",
                     "storageAccountKey": "[first(listKeys(parameters('diagnosticsStorageAccountId'),'2019-04-01').keys).value]",
                     "storageAccountEndPoint": "https://core.windows.net/"
                 }

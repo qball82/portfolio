@@ -6,7 +6,7 @@
             "value": "westus"
         },
         "networkSecurityGroupName": {
-            "value": "test01-nsg"
+            "value": "default-nsg"
         },
         "networkSecurityGroupRules": {
             "value": [
@@ -26,28 +26,28 @@
             ]
         },
         "subnetName": {
-            "value": "default"
-        },
-        "virtualNetworkName": {
-            "value": "MDAZ-Deploy01-RG-vnet"
-        },
-        "addressPrefixes": {
-            "value": [
-                "10.0.0.0/24"
-            ]
+            "value": "default-sn"
         },
         "subnets": {
             "value": [
                 {
-                    "name": "default",
+                    "name": "default-sn",
                     "properties": {
                         "addressPrefix": "10.0.0.0/24"
                     }
                 }
             ]
         },
+        "virtualNetworkName": {
+            "value": "default-vnet"
+        },
+        "addressPrefixes": {
+            "value": [
+                "10.0.0.0/24"
+            ]
+        },
         "publicIpAddressName": {
-            "value": "test01-ip"
+            "value": "default-ip"
         },
         "publicIpAddressType": {
             "value": "Dynamic"
@@ -56,10 +56,7 @@
             "value": "Basic"
         },
         "virtualMachineName": {
-            "value": "test02"
-        },
-        "virtualMachineRG": {
-            "value": "MDAZ-Deploy01-RG"
+            "value": "default-vm"
         },
         "osDiskType": {
             "value": "StandardSSD_LRS"
@@ -73,11 +70,8 @@
         "adminPassword": {
             "value": "P@ssword!P@ssword!"
         },
-        "diagnosticsStorageAccountName": {
-            "value": "mdazdeploy01rgdiag"
-        },
         "diagnosticsStorageAccountId": {
-            "value": "Microsoft.Storage/storageAccounts/mdazdeploy01rgdiag"
+            "value": "Microsoft.Storage/storageAccounts/defaultrgdiag"
         },
         "diagnosticsStorageAccountType": {
             "value": "Standard_LRS"
