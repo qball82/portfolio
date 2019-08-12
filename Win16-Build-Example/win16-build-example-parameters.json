@@ -70,8 +70,11 @@
         "adminPassword": {
             "value": "P@ssword!P@ssword!"
         },
+        "diagnosticsStorageAccountName": {
+            "value": "mdaztestdeploy01rgdiag"
+        },
         "diagnosticsStorageAccountId": {
-            "value": "Microsoft.Storage/storageAccounts/defaultrgdiag"
+            "value": "Microsoft.Storage/storageAccounts/mdaztestdeploy01rgdiag"
         },
         "diagnosticsStorageAccountType": {
             "value": "Standard_LRS"
