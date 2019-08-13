@@ -3,66 +3,10 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
         "location": {
-            "value": "westus"
-        },
-        "networkSecurityGroupName": {
-            "value": "default-nsg"
-        },
-        "networkSecurityGroupRules": {
-            "value": [
-                {
-                    "name": "RDP",
-                    "properties": {
-                        "priority": 300,
-                        "protocol": "TCP",
-                        "access": "Allow",
-                        "direction": "Inbound",
-                        "sourceAddressPrefix": "*",
-                        "sourcePortRange": "*",
-                        "destinationAddressPrefix": "*",
-                        "destinationPortRange": "3389"
-                    }
-                }
-            ]
-        },
-        "subnetName": {
-            "value": "default-sn"
-        },
-        "subnets": {
-            "value": [
-                {
-                    "name": "default-sn",
-                    "properties": {
-                        "addressPrefix": "10.0.0.0/24"
-                    }
-                }
-            ]
-        },
-        "virtualNetworkName": {
-            "value": "default-vnet"
-        },
-        "addressPrefixes": {
-            "value": [
-                "10.0.0.0/24"
-            ]
-        },
-        "publicIpAddressName": {
-            "value": "default-ip"
-        },
-        "publicIpAddressType": {
-            "value": "Dynamic"
-        },
-        "publicIpAddressSku": {
-            "value": "Basic"
+            "value": "westus" 
         },
         "virtualMachineName": {
-            "value": "default-vm"
-        },
-        "osDiskType": {
-            "value": "StandardSSD_LRS"
-        },
-        "virtualMachineSize": {
-            "value": "Standard_B1s"
+            "value": "vm16-03"
         },
         "adminUsername": {
             "value": "martianadmin"
@@ -71,34 +15,11 @@
             "value": "P@ssword!P@ssword!"
         },
         "diagnosticsStorageAccountName": {
-            "value": "mdaztestdeploy01rgdiag"
+            "value": "mdaztestdeploy03rgdiag"
         },
         "diagnosticsStorageAccountId": {
-            "value": "Microsoft.Storage/storageAccounts/mdaztestdeploy01rgdiag"
+            "value": "Microsoft.Storage/storageAccounts/mdaztestdeploy03rgdiag"
         },
-        "diagnosticsStorageAccountType": {
-            "value": "Standard_LRS"
-        },
-        "diagnosticsStorageAccountKind": {
-            "value": "Storage"
-        },
-        "autoShutdownStatus": {
-            "value": "Enabled"
-        },
-        "autoShutdownTime": {
-            "value": "19:00"
-        },
-        "autoShutdownTimeZone": {
-            "value": "Pacific Standard Time"
-        },
-        "autoShutdownNotificationStatus": {
-            "value": "Enabled"
-        },
-        "autoShutdownNotificationLocale": {
-            "value": "en"
-        },
-        "autoShutdownNotificationEmail": {
-            "value": "qfleming9@gmail.com"
-        }
+        
     }
 }
