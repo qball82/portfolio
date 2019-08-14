@@ -5,12 +5,6 @@
         "location": {
             "value": "westus"
         },
-        "networkInterfaceName": {
-            "value": "mdaz-vm04466"
-        },
-        "networkSecurityGroupName": {
-            "value": "mdaz-vm04-nsg"
-        },
         "networkSecurityGroupRules": {
             "value": [
                 {
@@ -32,7 +26,7 @@
             "value": "default"
         },
         "virtualNetworkName": {
-            "value": "MDAZ-TestDeploy04-RG-vnet"
+            "value": "MDAZ-Dump-RG-vnet"
         },
         "addressPrefixes": {
             "value": [
@@ -50,7 +44,7 @@
             ]
         },
         "publicIpAddressName": {
-            "value": "mdaz-vm04-ip"
+            "value": "mdaz-vm01t-ip"
         },
         "publicIpAddressType": {
             "value": "Dynamic"
@@ -59,10 +53,10 @@
             "value": "Basic"
         },
         "virtualMachineName": {
-            "value": "mdaz-vm04"
+            "value": "mdaz-vm01t"
         },
         "virtualMachineRG": {
-            "value": "MDAZ-TestDeploy04-RG"
+            "value": "MDAZ-Dump-RG"
         },
         "osDiskType": {
             "value": "StandardSSD_LRS"
@@ -74,7 +68,7 @@
             "value": "martianadmin"
         },
         "adminPassword": {
-            "value": null
+            "value": "P@ssword!P@ssword!"
         },
         "autoShutdownStatus": {
             "value": "Enabled"
