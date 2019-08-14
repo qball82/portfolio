@@ -23,9 +23,6 @@
         "virtualMachineName": {
             "type": "String"
         },
-        "virtualMachineRG": {
-            "type": "String"
-        },
         "adminUsername": {
             "type": "String"
         },
