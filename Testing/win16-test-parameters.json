@@ -6,7 +6,7 @@
             "value": "westus"
         },
         "networkSecurityGroupName": {
-            "value": "default-nsg"
+            "value": "default3-nsg"
         },
         "networkSecurityGroupRules": {
             "value": [
@@ -26,12 +26,12 @@
             ]
         },
         "subnetName": {
-            "value": "default-sn"
+            "value": "default3-sn"
         },
         "subnets": {
             "value": [
                 {
-                    "name": "default-sn",
+                    "name": "default3-sn",
                     "properties": {
                         "addressPrefix": "10.0.0.0/24"
                     }
@@ -39,7 +39,7 @@
             ]
         },
         "virtualNetworkName": {
-            "value": "default-vnet"
+            "value": "default3-vnet"
         },
         "addressPrefixes": {
             "value": [
@@ -47,7 +47,7 @@
             ]
         },
         "publicIpAddressName": {
-            "value": "default-ip"
+            "value": "default3-ip"
         },
         "publicIpAddressType": {
             "value": "Dynamic"
@@ -56,7 +56,7 @@
             "value": "Basic"
         },
         "virtualMachineName": {
-            "value": "default-vm"
+            "value": "default3-vm"
         },
         "osDiskType": {
             "value": "StandardSSD_LRS"
@@ -71,10 +71,10 @@
             "value": "P@ssword!P@ssword!"
         },
         "diagnosticsStorageAccountName": {
-            "value": "mdaztestdeploy01rgdiag"
+            "value": "mdaztestdeploy03rgdiag"
         },
         "diagnosticsStorageAccountId": {
-            "value": "Microsoft.Storage/storageAccounts/mdaztestdeploy01rgdiag"
+            "value": "Microsoft.Storage/storageAccounts/mdaztestdeploy03rgdiag"
         },
         "diagnosticsStorageAccountType": {
             "value": "Standard_LRS"
