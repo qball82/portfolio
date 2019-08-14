@@ -20,9 +20,6 @@
         "subnets": {
             "type": "Array"
         },
-        "publicIpAddressName": {
-            "type": "String"
-        },
         "virtualMachineName": {
             "type": "String"
         },
@@ -63,7 +60,7 @@
             "dependsOn": [
                 "[concat('Microsoft.Network/networkSecurityGroups/', variables('networkSecurityGroupName'))]",
                 "[concat('Microsoft.Network/virtualNetworks/', parameters('virtualNetworkName'))]",
-                "[concat('Microsoft.Network/publicIpAddresses/', parameters('publicIpAddressName'))]"
+                "[concat('Microsoft.Network/publicIpAddresses/', variables('publicIpAddressName'))]"
             ],
             "tags": {
                 "OS": "Windows"
@@ -118,7 +115,7 @@
         {
             "type": "Microsoft.Network/publicIpAddresses",
             "apiVersion": "2019-02-01",
-            "name": "[parameters('publicIpAddressName')]",
+            "name": "[variables('publicIpAddressName')]",
             "location": "[parameters('location')]",
             "tags": {
                 "OS": "Windows"
