@@ -43,26 +43,11 @@
                 }
             ]
         },
-        "publicIpAddressName": {
-            "value": "mdaz-vm01t-ip"
-        },
-        "publicIpAddressType": {
-            "value": "Dynamic"
-        },
-        "publicIpAddressSku": {
-            "value": "Basic"
-        },
         "virtualMachineName": {
             "value": "mdaz-vm01t"
         },
         "virtualMachineRG": {
             "value": "MDAZ-Dump-RG"
-        },
-        "osDiskType": {
-            "value": "StandardSSD_LRS"
-        },
-        "virtualMachineSize": {
-            "value": "Standard_B1ms"
         },
         "adminUsername": {
             "value": "martianadmin"
@@ -70,23 +55,6 @@
         "adminPassword": {
             "value": "P@ssword!P@ssword!"
         },
-        "autoShutdownStatus": {
-            "value": "Enabled"
-        },
-        "autoShutdownTime": {
-            "value": "19:00"
-        },
-        "autoShutdownTimeZone": {
-            "value": "Pacific Standard Time"
-        },
-        "autoShutdownNotificationStatus": {
-            "value": "Enabled"
-        },
-        "autoShutdownNotificationLocale": {
-            "value": "en"
-        },
-        "autoShutdownNotificationEmail": {
-            "value": "quentin@martiandigital.online"
-        }
+        
     }
 }
